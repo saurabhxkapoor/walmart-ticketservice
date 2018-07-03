@@ -6,8 +6,18 @@ performance venue.
 
 ## Build & Test
 
-Run the following command:
+Run the following command to execute tests:
 ```mvn clean test```
+
+#### Optional:To generate maven-surefire report
+##### Execute the following commands in order:
+1. ```mvn clean test```
+2. ```mvn surefire-report:report-only```
+3. ```mvn site -DgenerateReports=false```
+
+Once executed, open the following html file:
+```~target/site/surefire-report.html```
+
 
 Following Tests have been implemented for SeatHold & SeatReserve in SeatHoldTest & ReserveSeatsTest
 1. `num_seats_available`
