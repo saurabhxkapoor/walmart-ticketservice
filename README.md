@@ -17,7 +17,8 @@ Run the following command to execute tests:
 
 Once executed, open the following html file:
 ```~target/site/surefire-report.html```
-
+#### Sample Screenshot
+![image](https://user-images.githubusercontent.com/8683732/42201220-d57897ca-7e64-11e8-8680-724486527152.png)
 
 Following Tests have been implemented for SeatHold & SeatReserve in SeatHoldTest & ReserveSeatsTest
 1. `num_seats_available`
