@@ -48,7 +48,7 @@ Following Load (High user volume) tests have not been implemented:
 ## Design
 
 1. ```TicketServiceImp``` class implements the methods declared in the interface `TicketService`.
-2. `Best Available Seats` are allotted from front to the back of the stage. Also for `Best Available Seats`, Allotment is done from left to right.
+2. `Best Available Seats` are allotted from front to the back of the stage. The closer a user is seated to the stage, the better the seat it is. The `BestSeatAllotment` provides a way to assign points to the best seating arrangement.
 3. ```findAndHoldSeats``` and ```reserveSeats``` need to be thread safe and hence these methods are `Synchronized`.
 4. Once a user selects seat/seats, we call it as `SeatGroup` to identify it as a group of seats belonging to a user.
 5. HoldId is generated once the user successfully generates a hold on the seat.
