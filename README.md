@@ -20,7 +20,7 @@ Once executed, open the following html file:
 #### Sample Screenshot
 ![image](https://user-images.githubusercontent.com/8683732/42201220-d57897ca-7e64-11e8-8680-724486527152.png)
 
-Following Tests have been implemented for SeatHold & SeatReserve in SeatHoldTest & ReserveSeatsTest
+Following Tests have been implemented for SeatHold, SeatReserve & BestSeatAvailable in `SeatHoldTest`, `ReserveSeatsTest` & `BestSeatPointsTest`
 1. `num_seats_available`
 2. `shoud_not_reserve_ticket_if_holdId_is_not_proper`
 3. `should_not_hold_when_seats_not_available`
