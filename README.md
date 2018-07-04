@@ -33,6 +33,8 @@ Following Tests have been implemented for SeatHold & SeatReserve in SeatHoldTest
 10. `should_be_able_to_reserve_entire_venue`
 11. `should_not_be_able_to_reserve_seat_without_holding`
 12. `should_not_be_able_to_reserve_seat_for_different_email_address`
+13. `seat_towards_the_front_left_of_the_stage_has_higher_points`
+14. `seat_towards_back_right_of_the_stage_has_lowest_points`
 
 Following Load (High user volume) tests have not been implemented:
 1. `users_should_be_able_to_hold_different_seats_concurrently` for multiple users trying to block seats concurrently.
@@ -48,7 +50,7 @@ Following Load (High user volume) tests have not been implemented:
 ## Design
 
 1. ```TicketServiceImp``` class implements the methods declared in the interface `TicketService`.
-2. `Best Available Seats` are allotted from front to the back of the stage. The closer a user is seated to the stage, the better the seat it is. The `BestSeatAllotment` provides a way to assign points to the best seating arrangement.
+2. `Best Available Seats` are allotted from front to the back of the stage. The closer a user is seated to the stage, the better the seat it is. The `BestSeatAllotment` provides a way to assign points to the best seating arrangement.The more the seat is towards the right/ or the back of the stage, the lesser will be the points associated with the seat.
 3. ```findAndHoldSeats``` and ```reserveSeats``` need to be thread safe and hence these methods are `Synchronized`.
 4. Once a user selects seat/seats, we call it as `SeatGroup` to identify it as a group of seats belonging to a user.
 5. HoldId is generated once the user successfully generates a hold on the seat.

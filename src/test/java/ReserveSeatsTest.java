@@ -5,13 +5,13 @@ import org.junit.Test;
 public class ReserveSeatsTest {
 
     private TicketService ticketService;
-    private BestSeatAllottment scorer;
+    private BestSeatAllottment bestSeatAllottment;
     private SeatHoldUtils seatHoldUtils;
 
 
     @Before
     public void setVariables() {
-        this.scorer = new BestSeatAllottment();
+        this.bestSeatAllottment = new BestSeatAllottment();
         this.seatHoldUtils = new SeatHoldUtils();
     }
 
@@ -40,7 +40,7 @@ public class ReserveSeatsTest {
         final int rows = 5;
         final int totalSeats = seats * rows;
         Venue venue = new Venue(seats, rows);
-        this.ticketService = new TicketServiceImp(venue, scorer);
+        this.ticketService = new TicketServiceImp(venue, bestSeatAllottment);
         SeatHold hold = ticketService.findAndHoldSeats(2, "fddfg.fdgd@df.com");
         seatHoldUtils.verifySeatHold(hold, "fddfg.fdgd@df.com");
         Assert.assertEquals(totalSeats - 2, ticketService.numSeatsAvailable());
@@ -52,7 +52,7 @@ public class ReserveSeatsTest {
     @Test
     public void should_be_able_to_reserve_entire_venue() {
         Venue venue = new Venue(50, 100);
-        this.ticketService = new TicketServiceImp(venue, scorer);
+        this.ticketService = new TicketServiceImp(venue, bestSeatAllottment);
 
         final int blockSize = 2;
         for (int seat = 2; seat < venue.getMaxSeats(); seat += blockSize) {
@@ -70,7 +70,7 @@ public class ReserveSeatsTest {
     public void should_not_be_able_to_reserve_seat_without_holding() {
 
         Venue venue = new Venue(10, 8);
-        this.ticketService = new TicketServiceImp(venue, scorer);
+        this.ticketService = new TicketServiceImp(venue, bestSeatAllottment);
         ticketService.reserveSeats(333, "fddfg.fdgd@df.com");
         Assert.assertNull(ticketService.reserveSeats(333, "fddfg.fdgd@df.com"));
 
@@ -79,7 +79,7 @@ public class ReserveSeatsTest {
     @Test
     public void should_not_be_able_to_reserve_seat_for_different_email_address() {
         Venue venue = new Venue(10, 8);
-        this.ticketService = new TicketServiceImp(venue, scorer);
+        this.ticketService = new TicketServiceImp(venue, bestSeatAllottment);
         SeatHold hold = this.ticketService.findAndHoldSeats(5, "fddfg.fdgd@df.com");
         seatHoldUtils.verifySeatHold(hold, "fddfg.fdgd@df.com");
         String confirmation = ticketService.reserveSeats(hold.getId(), "XYZ.ABC@msn.com");
