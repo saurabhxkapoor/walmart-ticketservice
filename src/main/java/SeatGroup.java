@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class SeatGroup implements  SeatHold {
+public class SeatGroup implements SeatHold {
 
     private static int ID = 0;
     private int id = ++ID;
@@ -21,11 +21,11 @@ public class SeatGroup implements  SeatHold {
         this.seatPoints = SeatHoldUtils.round(scoreSum / this.seats.size());
     }
 
-    public SeatGroup(List<Seat> seats)
-    {
+    public SeatGroup(List<Seat> seats) {
         this(null, seats);
     }
-public int getId() {
+
+    public int getId() {
         return this.id;
     }
 
@@ -53,16 +53,13 @@ public int getId() {
 
     public List<SeatGroup> split(int size) {
         if (size > this.seats.size()) {
-            throw new ArrayIndexOutOfBoundsException("Split size is greater than the number of seats: " + size);
+            throw new ArrayIndexOutOfBoundsException("Partitioned size > the number of seats: " + size);
         }
         List<SeatGroup> results = new ArrayList<>();
 
         int bestStartingIndex = bestAvailableIndex(size);
 
         if (bestStartingIndex == 0) {
-            // Split into two groups returning the left most.
-
-
 
             List<Seat> left = this.seats.subList(0, size);
             List<Seat> right = this.seats.subList(size, this.seats.size());
@@ -70,9 +67,6 @@ public int getId() {
             results.add(new SeatGroup(left));
             results.add(new SeatGroup(right));
         } else if (bestStartingIndex + size == this.seats.size()) {
-            // Split into two returning the right most.
-
-
 
             List<Seat> left = this.seats.subList(0, bestStartingIndex);
             List<Seat> right = this.seats.subList(bestStartingIndex, this.seats.size());
@@ -80,9 +74,6 @@ public int getId() {
             results.add(new SeatGroup(right));
             results.add(new SeatGroup(left));
         } else if (bestStartingIndex > 0) {
-            // Potentially split into three groups, returning the middle.
-
-
 
             List<Seat> left = this.seats.subList(0, bestStartingIndex);
             List<Seat> middle = this.seats.subList(bestStartingIndex, bestStartingIndex + size);
@@ -96,12 +87,9 @@ public int getId() {
             results.add(new SeatGroup(middle));
             results.add(new SeatGroup(left));
             if (right.size() > 0) {
-                // There is a block on the right.
                 results.add(new SeatGroup(right));
             }
         }
-
-
         return results;
     }
 

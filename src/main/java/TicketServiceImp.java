@@ -117,27 +117,19 @@ public class TicketServiceImp implements TicketService {
 
         for (SeatGroup seatGroup : this.seatGroups) {
             if (seatGroupSize || seatGroup.size() >= numSeats) {
-                //
                 usedSeatGroups.add(seatGroup);
-
                 if (seatGroup.size() == seatsRequired) {
-
-
                     heldSeats.addAll(seatGroup.getSeats());
                     seatsRequired -= seatGroup.size();
-
                     assert (seatsRequired == 0);
-
                     break;
                 } else if (seatsRequired < seatGroup.size()) {
-
-                    List<SeatGroup> splits = seatGroup.split(seatsRequired);
-                    SeatGroup bestAvailableGrp = splits.get(0);
+                    List<SeatGroup> partitionSeat = seatGroup.split(seatsRequired);
+                    SeatGroup bestAvailableGrp = partitionSeat.get(0);
                     heldSeats.addAll(bestAvailableGrp.getSeats());
                     seatsRequired -= bestAvailableGrp.size();
-
-                    for (int i = 1; i < splits.size(); i++) {
-                        this.seatGroups.add(splits.get(i));
+                    for (int i = 1; i < partitionSeat.size(); i++) {
+                        this.seatGroups.add(partitionSeat.get(i));
                     }
                     break;
                 } else {
@@ -162,11 +154,9 @@ public class TicketServiceImp implements TicketService {
 
     @Override
     public synchronized String reserveSeats(int seatHoldId, String customerEmail) {
-
         if (seatHoldId <= 0) {
             return null;
         }
-
        else if (!isCustomerEmailValid(customerEmail))
             return null;
 
